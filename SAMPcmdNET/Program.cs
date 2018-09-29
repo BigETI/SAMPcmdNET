@@ -70,9 +70,13 @@ namespace SAMPcmdNET
                 foreach (string arg in args)
                 {
                     if (first)
+                    {
                         first = false;
+                    }
                     else
+                    {
                         arguments.Append(" ");
+                    }
                     arguments.Append(arg);
                 }
                 IntPtr mh = Kernel32.GetModuleHandle("kernel32.dll");
@@ -105,28 +109,42 @@ namespace SAMPcmdNET
                                         }
                                     }
                                     else
+                                    {
                                         Console.Error.WriteLine("Failed to create remote thread with \"CreateRemoteThread\".");
+                                    }
                                 }
                                 else
+                                {
                                     Console.Error.WriteLine("Failed to write into process memory with \"WriteProcessMemory\".");
+                                }
                                 Kernel32.VirtualFreeEx(process_info.hProcess, ptr, 0, Kernel32.AllocationType.Release);
                             }
                             else
+                            {
                                 Console.Error.WriteLine("Failed to allocate memory with \"VirtualAllocEx\".");
+                            }
                             Kernel32.ResumeThread(process_info.hThread);
                             Kernel32.CloseHandle(process_info.hProcess);
                         }
                         else
+                        {
                             Console.Error.WriteLine("Failed to create process \"" + GTASAExePath + "\"");
+                        }
                     }
                     else
+                    {
                         Console.Error.WriteLine("Function LoadLibraryW not found.");
+                    }
                 }
                 else
+                {
                     Console.Error.WriteLine("Module kernel32.dll not found.");
+                }
             }
             else
+            {
                 Console.Error.WriteLine("SA:MP is not installed on \"" + ExeDir + "\".");
+            }
         }
     }
 }
